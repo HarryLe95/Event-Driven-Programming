@@ -1,0 +1,194 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module DFA</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>DFA</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:c%3A%5Cusers%5Choangle%5Cdownloads%5Cevent%20drivent%20programming%5Cevent-driven-programming%5Cpythonimplementation%5Cdfa.py">c:\users\hoangle\downloads\event drivent programming\event-driven-programming\pythonimplementation\dfa.py</a></font></td></tr></table>
+    <p></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ee77aa">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Classes</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#ee77aa"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl>
+<dt><font face="helvetica, arial"><a href="builtins.html#object">builtins.object</a>
+</font></dt><dd>
+<dl>
+<dt><font face="helvetica, arial"><a href="DFA.html#FA">FA</a>
+</font></dt><dd>
+<dl>
+<dt><font face="helvetica, arial"><a href="DFA.html#DFA">DFA</a>
+</font></dt></dl>
+</dd>
+</dl>
+</dd>
+</dl>
+ <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="DFA">class <strong>DFA</strong></a>(<a href="DFA.html#FA">FA</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt><a href="#DFA">DFA</a>(init_state:&nbsp;int,&nbsp;state_set:&nbsp;Sequence[int],&nbsp;alphabet:&nbsp;Sequence[str],&nbsp;transition_function:&nbsp;dict,&nbsp;final_state:&nbsp;int)<br>
+&nbsp;<br>
+<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%"><dl><dt>Method resolution order:</dt>
+<dd><a href="DFA.html#DFA">DFA</a></dd>
+<dd><a href="DFA.html#FA">FA</a></dd>
+<dd><a href="builtins.html#object">builtins.object</a></dd>
+</dl>
+<hr>
+Methods defined here:<br>
+<dl><dt><a name="DFA-__call__"><strong>__call__</strong></a>(self, string: str)</dt><dd><tt>Perform&nbsp;<a href="#DFA">DFA</a>&nbsp;operation&nbsp;on&nbsp;an&nbsp;input&nbsp;string.&nbsp;Return&nbsp;True&nbsp;if&nbsp;string&nbsp;results&nbsp;in&nbsp;the&nbsp;transition&nbsp;to&nbsp;the&nbsp;final&nbsp;state<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;string&nbsp;(str):&nbsp;a&nbsp;finite&nbsp;sequence&nbsp;of&nbsp;symbols&nbsp;drawn&nbsp;from&nbsp;the&nbsp;alphabet<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;bool:&nbsp;accept/reject</tt></dd></dl>
+
+<dl><dt><a name="DFA-__init__"><strong>__init__</strong></a>(self, init_state: int, state_set: Sequence[int], alphabet: Sequence[str], transition_function: dict, final_state: int)</dt><dd><tt><a href="#DFA">DFA</a>&nbsp;Class&nbsp;constructor<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;init_state&nbsp;(int):&nbsp;intial&nbsp;state<br>
+&nbsp;&nbsp;&nbsp;&nbsp;state_set&nbsp;(Sequence[int]):&nbsp;set&nbsp;of&nbsp;acceptable&nbsp;states<br>
+&nbsp;&nbsp;&nbsp;&nbsp;alphabet&nbsp;(Sequence[str]):&nbsp;set&nbsp;of&nbsp;valid&nbsp;input<br>
+&nbsp;&nbsp;&nbsp;&nbsp;symbol_transition&nbsp;(dict):&nbsp;transition&nbsp;function&nbsp;as&nbsp;a&nbsp;LUT&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;final_state&nbsp;(int):&nbsp;final&nbsp;accepting&nbsp;state</tt></dd></dl>
+
+<dl><dt><a name="DFA-stringTransition"><strong>stringTransition</strong></a>(self, string: str, state: int = -1)</dt><dd><tt>Recursive&nbsp;state&nbsp;transition&nbsp;on&nbsp;a&nbsp;string&nbsp;sequence<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;string&nbsp;(str):&nbsp;input&nbsp;string<br>
+&nbsp;&nbsp;&nbsp;&nbsp;state&nbsp;(int,&nbsp;optional):&nbsp;current&nbsp;state.&nbsp;Defaults&nbsp;to&nbsp;-1,&nbsp;which&nbsp;selects&nbsp;the&nbsp;init_state<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;int:&nbsp;end&nbsp;state&nbsp;after&nbsp;all&nbsp;symbols&nbsp;are&nbsp;ingested.</tt></dd></dl>
+
+<dl><dt><a name="DFA-symbolTransition"><strong>symbolTransition</strong></a>(self, state: int, symbol: str)</dt><dd><tt>Perform&nbsp;a&nbsp;table&nbsp;look&nbsp;up&nbsp;to&nbsp;determine&nbsp;the&nbsp;transition&nbsp;state<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;state&nbsp;(int):&nbsp;current&nbsp;state<br>
+&nbsp;&nbsp;&nbsp;&nbsp;symbol&nbsp;(str):&nbsp;input&nbsp;symbol<br>
+&nbsp;<br>
+Raises:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;ValueError:&nbsp;if&nbsp;symbol&nbsp;does&nbsp;not&nbsp;belong&nbsp;to&nbsp;the&nbsp;alphabet<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;int:&nbsp;next&nbsp;state</tt></dd></dl>
+
+<hr>
+Methods inherited from <a href="DFA.html#FA">FA</a>:<br>
+<dl><dt><a name="DFA-isValidState"><strong>isValidState</strong></a>(self, state: Union[int, Sequence[int]])</dt><dd><tt>Helper&nbsp;function&nbsp;to&nbsp;validate&nbsp;if&nbsp;input&nbsp;state&nbsp;belongs&nbsp;to&nbsp;the&nbsp;set&nbsp;of&nbsp;acceptable&nbsp;states<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;state&nbsp;(int&nbsp;|&nbsp;Sequence[int]):&nbsp;input&nbsp;state<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;bool:&nbsp;True&nbsp;if&nbsp;state&nbsp;belongs&nbsp;to&nbsp;acceptable&nbsp;state&nbsp;set</tt></dd></dl>
+
+<dl><dt><a name="DFA-isValidSymbol"><strong>isValidSymbol</strong></a>(self, symbol: str)</dt><dd><tt>Check&nbsp;whether&nbsp;the&nbsp;input&nbsp;symbol&nbsp;is&nbsp;in&nbsp;the&nbsp;alphabet<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;symbol&nbsp;(str):&nbsp;symbol&nbsp;from&nbsp;input&nbsp;string</tt></dd></dl>
+
+<dl><dt><a name="DFA-validateStates"><strong>validateStates</strong></a>(self)</dt><dd><tt>Function&nbsp;to&nbsp;perform&nbsp;input&nbsp;state&nbsp;validation<br>
+&nbsp;<br>
+Steps:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;1.&nbsp;validate&nbsp;init_state<br>
+&nbsp;&nbsp;&nbsp;&nbsp;2.&nbsp;validate&nbsp;final_state<br>
+&nbsp;&nbsp;&nbsp;&nbsp;3.&nbsp;validate&nbsp;begin&nbsp;state&nbsp;in&nbsp;transition&nbsp;function&nbsp;table<br>
+&nbsp;&nbsp;&nbsp;&nbsp;4.&nbsp;validate&nbsp;end&nbsp;state&nbsp;in&nbsp;transition&nbsp;function&nbsp;table&nbsp;<br>
+&nbsp;<br>
+Raises:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;ValueError:&nbsp;if&nbsp;one&nbsp;of&nbsp;the&nbsp;input&nbsp;states&nbsp;are&nbsp;invalid</tt></dd></dl>
+
+<hr>
+Data descriptors inherited from <a href="DFA.html#FA">FA</a>:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+</td></tr></table> <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="FA">class <strong>FA</strong></a>(<a href="builtins.html#object">builtins.object</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt><a href="#FA">FA</a>(init_state:&nbsp;Union[int,&nbsp;Sequence[int]],&nbsp;state_set:&nbsp;Sequence[int],&nbsp;transition_function:&nbsp;dict,&nbsp;alphabet:&nbsp;Sequence[str],&nbsp;final_state:&nbsp;Union[int,&nbsp;Sequence[int]])<br>
+&nbsp;<br>
+ABC&nbsp;for&nbsp;finite&nbsp;automata.&nbsp;This&nbsp;class&nbsp;handles&nbsp;input&nbsp;validation&nbsp;check&nbsp;and&nbsp;<br>
+is&nbsp;inherited&nbsp;by&nbsp;<a href="#DFA">DFA</a>&nbsp;and&nbsp;NFA.<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="FA-__init__"><strong>__init__</strong></a>(self, init_state: Union[int, Sequence[int]], state_set: Sequence[int], transition_function: dict, alphabet: Sequence[str], final_state: Union[int, Sequence[int]])</dt><dd><tt><a href="#FA">FA</a>&nbsp;Class&nbsp;constructor<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;init_state&nbsp;(int|Sequence[int]):&nbsp;intial&nbsp;state<br>
+&nbsp;&nbsp;&nbsp;&nbsp;state_set&nbsp;(Sequence[int]):&nbsp;set&nbsp;of&nbsp;acceptable&nbsp;states<br>
+&nbsp;&nbsp;&nbsp;&nbsp;alphabet&nbsp;(Sequence[str]):&nbsp;set&nbsp;of&nbsp;valid&nbsp;input<br>
+&nbsp;&nbsp;&nbsp;&nbsp;symbol_transition&nbsp;(dict):&nbsp;transition&nbsp;function&nbsp;as&nbsp;a&nbsp;LUT&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;final_state&nbsp;(int):&nbsp;final&nbsp;accepting&nbsp;state</tt></dd></dl>
+
+<dl><dt><a name="FA-isValidState"><strong>isValidState</strong></a>(self, state: Union[int, Sequence[int]])</dt><dd><tt>Helper&nbsp;function&nbsp;to&nbsp;validate&nbsp;if&nbsp;input&nbsp;state&nbsp;belongs&nbsp;to&nbsp;the&nbsp;set&nbsp;of&nbsp;acceptable&nbsp;states<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;state&nbsp;(int&nbsp;|&nbsp;Sequence[int]):&nbsp;input&nbsp;state<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;bool:&nbsp;True&nbsp;if&nbsp;state&nbsp;belongs&nbsp;to&nbsp;acceptable&nbsp;state&nbsp;set</tt></dd></dl>
+
+<dl><dt><a name="FA-isValidSymbol"><strong>isValidSymbol</strong></a>(self, symbol: str)</dt><dd><tt>Check&nbsp;whether&nbsp;the&nbsp;input&nbsp;symbol&nbsp;is&nbsp;in&nbsp;the&nbsp;alphabet<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;symbol&nbsp;(str):&nbsp;symbol&nbsp;from&nbsp;input&nbsp;string</tt></dd></dl>
+
+<dl><dt><a name="FA-validateStates"><strong>validateStates</strong></a>(self)</dt><dd><tt>Function&nbsp;to&nbsp;perform&nbsp;input&nbsp;state&nbsp;validation<br>
+&nbsp;<br>
+Steps:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;1.&nbsp;validate&nbsp;init_state<br>
+&nbsp;&nbsp;&nbsp;&nbsp;2.&nbsp;validate&nbsp;final_state<br>
+&nbsp;&nbsp;&nbsp;&nbsp;3.&nbsp;validate&nbsp;begin&nbsp;state&nbsp;in&nbsp;transition&nbsp;function&nbsp;table<br>
+&nbsp;&nbsp;&nbsp;&nbsp;4.&nbsp;validate&nbsp;end&nbsp;state&nbsp;in&nbsp;transition&nbsp;function&nbsp;table&nbsp;<br>
+&nbsp;<br>
+Raises:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;ValueError:&nbsp;if&nbsp;one&nbsp;of&nbsp;the&nbsp;input&nbsp;states&nbsp;are&nbsp;invalid</tt></dd></dl>
+
+<hr>
+Data descriptors defined here:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+</td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#eeaa77">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Functions</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#eeaa77"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl><dt><a name="-truediv"><strong>truediv</strong></a>(a, b, /)</dt><dd><tt>Same&nbsp;as&nbsp;a&nbsp;/&nbsp;b.</tt></dd></dl>
+</td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#55aa55">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Data</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#55aa55"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><strong>Sequence</strong> = typing.Sequence<br>
+<strong>delta</strong> = {(0, '0'): 1, (0, '1'): 0, (1, '0'): 1, (1, '1'): 2, (2, '0'): 1, (2, '1'): 0}</td></tr></table>
+</body></html>
