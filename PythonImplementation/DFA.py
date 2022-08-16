@@ -1,4 +1,3 @@
-from operator import truediv
 from typing import Sequence
 
 delta = {(0,'0'):1,
@@ -28,14 +27,38 @@ class FA:
             symbol_transition (dict): transition function as a LUT 
             final_state (int): final accepting state
         """
-        self.init_state = init_state
-        self.final_state = final_state
-        self.state_set = set(state_set) 
+        self.init_state = FA.makeSet(init_state)
+        self.final_state = FA.makeSet(final_state)
+        self.state_set = FA.makeSet(state_set) 
         self.transition_function = transition_function
-        self.alphabet = alphabet 
+        self.alphabet = FA.makeSet(alphabet)
         self.validateStates()
+    
+    @staticmethod
+    def _makeSet(setobj:int|Sequence[int]):
+        union = set()
+        union.add(setobj) if isinstance(setobj,int) else union.update(setobj)
+        return union
+    
+    @staticmethod
+    def makeSet(set_obj:int|Sequence[int]):
+        """Create a set from elements of set_obj
+
+        Args:
+            set_obj (int|Sequence): can be an int literal or a collects.abc.Sequence
+
+        Returns:
+            set: set containing set_obj elements
+        """
+        if isinstance(set_obj,int):
+            return FA._makeSet(set_obj)
+        union = set()
+        for item in set_obj:
+            union.update(FA._makeSet(item))
+        return union        
+            
         
-    def isValidState(self, state: int|Sequence[int]):
+    def isValidState(self, state: set):
         """Helper function to validate if input state belongs to the set of acceptable states
 
         Args:
@@ -44,10 +67,10 @@ class FA:
         Returns:
             bool: True if state belongs to acceptable state set
         """
-        if isinstance(state,int):
-            return state in self.state_set
-        states = set(state)
-        return states.issubset(self.state_set)
+        check_state = state
+        if not isinstance(check_state,set):
+            check_state = FA.makeSet(check_state)
+        return check_state.issubset(self.state_set)
     
     def validateStates(self):
         """Function to perform input state validation
@@ -63,9 +86,9 @@ class FA:
         """
         valid_init = self.isValidState(self.init_state)
         valid_final = self.isValidState(self.final_state)
-        begin = self.transition_function.keys()
-        begin_state = [item[0] for item in begin]
-        end_state = self.transition_function.values()
+        begin_ = [x[0] for x in self.transition_function.keys()]
+        begin_state = FA.makeSet(begin_)
+        end_state = FA.makeSet(self.transition_function.values())
         valid_begin = self.isValidState(begin_state)
         valid_end = self.isValidState(end_state)
         if not (valid_init and valid_final and valid_begin and valid_end):
@@ -78,6 +101,19 @@ class FA:
             symbol (str): symbol from input string
         """
         return symbol in self.alphabet 
+    
+    def isAcceptingState(self, state:int|Sequence[int]):
+        """Check if a state or a set of state is accepted by the DFA
+
+        Args:
+            state (int | Sequence[int]): input state
+
+        Returns:
+            bool: True if the set constructed from state intersects with the DFA accepting states set
+        """
+        state_set = FA.makeSet(state)
+        return state_set.intersection(self.final_state) != set()
+        
         
 class DFA(FA):
     def __init__(self, 
@@ -128,7 +164,7 @@ class DFA(FA):
         Returns:
             int: end state after all symbols are ingested.
         """
-        state = self.init_state if state == -1 else state
+        state = list(self.init_state)[0] if state == -1 else state
         if string == '':
             return state
         symbol, string = string[0], string[1:]
@@ -145,9 +181,7 @@ class DFA(FA):
             bool: accept/reject
         """
         end_state = self.stringTransition(string)
-        if end_state == self.final_state:
-            return True
-        return False
+        return self.isAcceptingState(end_state)
     
 if __name__ == "__main__":
     #Test zeroOne DFA
@@ -156,10 +190,20 @@ if __name__ == "__main__":
     state_set = {0,1,2}
     symbol_transition=delta
     alphabet = {'0','1'}
-    zeroOne = DFA(init_state,state_set,alphabet,symbol_transition,final_state)
+    zeroOne = DFA(init_state=init_state,
+                  state_set=state_set,
+                  alphabet=alphabet,
+                  transition_function=symbol_transition,
+                  final_state=final_state)
     
     #Check str 
-    print(zeroOne('0110101'))
+    print(zeroOne('01'))
     
     #Check str 
     print(zeroOne('01101010'))
+    
+    #Check str 
+    print(zeroOne('011101'))
+    
+    #Check str 
+    print(zeroOne('011010'))
