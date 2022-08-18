@@ -1,5 +1,5 @@
 from re import X
-from DFA import FA, DFA
+from EDP.DFA import FA, DFA
 from typing import Sequence
 
 delta = {(0,'0'):{0,1},
