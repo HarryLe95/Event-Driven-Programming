@@ -8,12 +8,13 @@ import java.util.InputMismatchException;
 import java.util.Map;
 
 public class FiniteStateMachine {
-    private FiniteSet<Integer> initState;
-    private FiniteSet<Integer> finalState;
-    private FiniteSet<Integer> stateSet;
-    private FiniteSet<Character> symbolSet;
-    private TransitionFunction<Integer, Character> transitionFunction;
+    protected FiniteSet<Integer> initState;
+    protected FiniteSet<Integer> finalState;
+    protected FiniteSet<Integer> stateSet;
+    protected FiniteSet<Character> symbolSet;
+    protected TransitionFunction<Integer, Character> transitionFunction;
 
+    FiniteStateMachine(){}
     //Constructor
     FiniteStateMachine(FiniteSet<Integer> initState,
                        FiniteSet<Integer> finalState,
