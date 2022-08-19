@@ -8,6 +8,7 @@ public class DeterministicAutomata extends FiniteStateMachine {
                           FiniteSet<Character> symbolSet,
                           TransitionFunction<Integer, Character> transitionFunction) {
         super(initState, finalState, stateSet, symbolSet, transitionFunction);
+        initialise();
     }
 
     public void initialise(){
@@ -26,9 +27,22 @@ public class DeterministicAutomata extends FiniteStateMachine {
         }
     }
 
-    public boolean accept(String string) {
-        next(string);
-        return isAcceptedState(currentState);
+    public void next(String string, boolean debug){
+        if (!debug){
+            next(string);
+            return;
+        }
+        System.out.println("Current state: "+currentState);
+        for (char symbol: string.toCharArray()){
+            next(symbol);
+            System.out.println("Symbol: "+symbol+", State: "+currentState);
+        }
+    }
+    public boolean accept(String string, boolean debug) {
+        next(string, debug);
+        boolean accept = isAcceptedState(currentState);
+        initialise();
+        return accept;
     }
 
     public static void main(String[] args) {
@@ -46,7 +60,7 @@ public class DeterministicAutomata extends FiniteStateMachine {
         );
         DeterministicAutomata zeroOne = new DeterministicAutomata(initState, finalState,
                 stateSet, symbolSet, transitionFunction);
-        System.out.println(zeroOne.accept("0101"));
-        System.out.println(zeroOne.accept("1010"));
+        System.out.println(zeroOne.accept("0101", true));
+        System.out.println(zeroOne.accept("1010", true));
     }
 }
