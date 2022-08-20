@@ -1,7 +1,8 @@
-public class NonDeterministicAutomata extends DeterministicAutomata {
+public class NonDeterministicAutomata extends FiniteStateMachine {
 
-    private FiniteSet<Integer> currentState;
+    protected FiniteSet<Integer> currentState;
 
+    NonDeterministicAutomata(){}
     NonDeterministicAutomata(FiniteSet<Integer> initState,
                              FiniteSet<Integer> finalState,
                              FiniteSet<Integer> stateSet,
@@ -11,12 +12,10 @@ public class NonDeterministicAutomata extends DeterministicAutomata {
         initialise();
     }
 
-    @Override
     public void initialise() {
         currentState = initState;
     }
 
-    @Override
     public void next(char symbol) {
         FiniteSet<Integer> nextState = new FiniteSet<>();
         for (int item: currentState){
@@ -29,14 +28,12 @@ public class NonDeterministicAutomata extends DeterministicAutomata {
         currentState = nextState;
     }
 
-    @Override
     public void next(String string) {
         for (char symbol : string.toCharArray()) {
             next(symbol);
         }
     }
 
-    @Override
     public void next(String string, boolean debug){
         if (!debug){
             next(string);
@@ -49,7 +46,6 @@ public class NonDeterministicAutomata extends DeterministicAutomata {
         }
     }
 
-    @Override
     public boolean accept(String string, boolean debug) {
         next(string, debug);
         boolean accept = isAcceptedState(currentState);
