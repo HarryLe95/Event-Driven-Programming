@@ -1,4 +1,5 @@
 import java.util.HashMap;
+import java.util.Objects;
 
 public class State {
     public static int counter;
@@ -72,6 +73,5 @@ public class State {
         q2.repr();
 
     }
-
 
 }

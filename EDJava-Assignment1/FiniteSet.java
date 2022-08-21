@@ -1,6 +1,6 @@
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.List;
+import java.util.Set;
 
 /*
  * FiniteSet is the type alias for HashSet<E> (C++ type alias), use to store
@@ -43,7 +43,7 @@ public class FiniteSet<E> extends HashSet<E> {
 
     //Factory method
     public static <E> FiniteSet<E> of(E... elem){
-        FiniteSet<E> newSet = new FiniteSet<>(List.of(elem));
+        FiniteSet<E> newSet = new FiniteSet<>(Set.of(elem));
         return newSet;
     }
 
