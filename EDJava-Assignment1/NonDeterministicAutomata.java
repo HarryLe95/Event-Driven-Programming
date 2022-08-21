@@ -2,7 +2,6 @@ public class NonDeterministicAutomata extends FiniteStateMachine {
 
     protected FiniteSet<Integer> currentState;
 
-    NonDeterministicAutomata(){}
     NonDeterministicAutomata(FiniteSet<Integer> initState,
                              FiniteSet<Integer> finalState,
                              FiniteSet<Integer> stateSet,

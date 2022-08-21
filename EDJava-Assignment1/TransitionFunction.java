@@ -14,14 +14,6 @@ public class TransitionFunction<U, V> extends
         super();
     }
 
-    TransitionFunction(int initialCapacity) {
-        super(initialCapacity);
-    }
-
-    TransitionFunction(int initialCapacity, float loadFactor) {
-        super(initialCapacity, loadFactor);
-    }
-
     TransitionFunction(Map<? extends Pair<U, V>, ? extends FiniteSet<U>> m) {
         super(m);
     }
