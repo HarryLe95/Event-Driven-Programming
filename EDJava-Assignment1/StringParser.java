@@ -1,33 +1,37 @@
 import java.util.*;
 
 public class StringParser {
-    public static HashMap<Character, Pair<Integer, Character>> getOpDict() {
+    protected Queue<Character> outputQueue;
+    protected Stack<Character> opStack;
+    protected HashMap<Character, Pair<Integer, Character>> opDict;
+
+    StringParser(){}
+    StringParser(HashMap<Character, Pair<Integer, Character>> opDict) {
+        this.opDict = opDict;
+    }
+
+    public HashMap<Character, Pair<Integer, Character>> getOpDict() {
         return opDict;
     }
 
-    public static void setOpDict(HashMap<Character, Pair<Integer, Character>> opDict) {
-        StringParser.opDict = opDict;
+    public void initialise() {
+        this.outputQueue = new LinkedList<>();
+        this.opStack = new Stack<>();
     }
 
-    public static HashMap<Character, Pair<Integer, Character>> opDict = new HashMap<>(Map.of(
-            '*', Pair.of(2, 'L'),
-            '+', Pair.of(2, 'L'),
-            '|', Pair.of(1, 'L')
-    ));
-
-    public static boolean isAlphanumeric(char c) {
+    public boolean isAlphanumeric(char c) {
         return (c >= '0' && c <= '9') || (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z');
     }
 
-    public static boolean isOperator(char c) {
+    public boolean isOperator(char c) {
         return opDict.containsKey(c);
     }
 
-    public static boolean isLeftParenthesis(char c) {
+    public boolean isLeftParenthesis(char c) {
         return (c == '(');
     }
 
-    public static boolean isRightParenthesis(char c) {
+    public boolean isRightParenthesis(char c) {
         return (c == ')');
     }
 
@@ -35,70 +39,80 @@ public class StringParser {
         return (c == ' ');
     }
 
-    StringParser() {
+    protected void parseSubroutine(char c) {
+        if (isSpace(c)) {
+            return;
+        } else if (isAlphanumeric(c)) {
+            outputQueue.offer(c);
+        } else if (isOperator(c)) {
+            char op1 = c;
+            while (!opStack.isEmpty()) {
+                char op2 = opStack.peek();
+                if (!isLeftParenthesis(op2) && (
+                        (opDict.get(op2).first > opDict.get(op1).first) ||
+                                ((opDict.get(op2).first == opDict.get(op1).first) &&
+                                        (opDict.get(op1).second == 'L')))) {
+                    outputQueue.offer(opStack.pop());
+                } else {
+                    break;
+                }
+            }
+            opStack.push(op1);
+        } else if (isLeftParenthesis(c)) {
+            opStack.push(c);
+        } else if (isRightParenthesis(c)) {
+            boolean mismatch = true;
+            while (!opStack.isEmpty()) {
+                if (isLeftParenthesis(opStack.peek())) {
+                    opStack.pop();
+                    mismatch = false;
+                    break;
+                } else {
+                    outputQueue.offer(opStack.pop());
+                }
+            }
+            if (mismatch) {
+                throw new InputMismatchException("Missing parenthesis");
+            }
+        } else {
+            throw new InputMismatchException("Not a valid language symbol");
+        }
     }
 
-    public Queue<Character> parse(String string) {
-        Queue<Character> outputQueue = new LinkedList<>();
-        Stack<Character> opStack = new Stack<>();
-
+    public Queue<Character> parse(String string, boolean debug) {
+        initialise();
         for (char c : string.toCharArray()) {
-            if (isSpace(c)) {
-                continue;
-            } else if (isAlphanumeric(c)) {
-                outputQueue.offer(c);
-            } else if (isOperator(c)) {
-                char op1 = c;
-                while (!opStack.isEmpty()) {
-                    char op2 = opStack.peek();
-                    if (!isLeftParenthesis(op2) && (
-                            (opDict.get(op2).first > opDict.get(op1).first) ||
-                                    ((opDict.get(op2).first == opDict.get(op1).first) &&
-                                            (opDict.get(op1).second == 'L')))) {
-                        outputQueue.offer(opStack.pop());
-                    } else {
-                        break;
-                    }
-                }
-                opStack.push(op1);
-            } else if (isLeftParenthesis(c)) {
-                opStack.push(c);
-            } else if (isRightParenthesis(c)) {
-                boolean mismatch = true;
-                while (!opStack.isEmpty()) {
-                    if (isLeftParenthesis(opStack.peek())) {
-                        opStack.pop();
-                        mismatch = false;
-                        break;
-                    } else {
-                        outputQueue.offer(opStack.pop());
-                    }
-                }
-                if (mismatch) {
-                    throw new InputMismatchException("Missing parenthesis");
-                }
-            } else {
-                throw new InputMismatchException("Not a valid language symbol");
+            parseSubroutine(c);
+            if (debug) {
+                System.out.println("Token: " + c + ", opStack: " + opStack + ", outputQueue: " + outputQueue);
             }
-            System.out.println("Token: " + c + ", opStack: " + opStack + ", outputQueue: " + outputQueue);
         }
         while (!opStack.isEmpty()) {
             outputQueue.offer(opStack.pop());
         }
-        System.out.println("opStack: " + opStack + ", outputQueue: " + outputQueue);
-        return outputQueue;
+        if (debug) {
+            System.out.println("opStack: " + opStack + ", outputQueue: " + outputQueue);
+        }return outputQueue;
     }
 
     public static void main(String[] args) {
-        StringParser parser = new StringParser();
-        HashMap<Character, Pair<Integer, Character>> opPred = new HashMap<>(Map.of(
+        HashMap<Character, Pair<Integer, Character>> regExMap = new HashMap<>(Map.of(
+                '*', Pair.of(2, 'L'),
+                '+', Pair.of(2, 'L'),
+                '|', Pair.of(1, 'L')
+        ));
+        StringParser regexParser = new StringParser(regExMap);
+        System.out.println(regexParser.parse("abc|xyz",false));
+
+
+        HashMap<Character, Pair<Integer, Character>> arithmeticMap = new HashMap<>(Map.of(
                 '^', Pair.of(4, 'R'),
                 '*', Pair.of(3, 'L'),
                 '/', Pair.of(3, 'L'),
                 '+', Pair.of(2, 'L'),
                 '-', Pair.of(2, 'L')
         ));
-        parser.setOpDict(opPred);
-        System.out.println(parser.parse("3+4*2/(1-5)^2^3"));
+        StringParser parser = new StringParser(arithmeticMap);
+        System.out.println(parser.parse("3+4*2/(1-5)^2^3",false));
     }
 }
