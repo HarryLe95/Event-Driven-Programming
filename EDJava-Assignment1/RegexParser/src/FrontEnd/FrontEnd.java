@@ -1,5 +1,15 @@
-package src.FrontEnd;
+/*
+* Implement the front end of a regex engine
+* The main functionality is to build a postfix version of a regex pattern
+* and build a Finite State Machine representation of it.
+*
+* The two public APIs are
+*     The constructor which takes a regex pattern as an input and build the finite state machine modelContainer from it.
+*     getModelContainer - which returns a StateContainer of the NFA equivalent to the regex pattern.
+*
+*/
 
+package src.FrontEnd;
 
 import java.util.Queue;
 import java.util.Stack;

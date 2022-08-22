@@ -1,5 +1,10 @@
 /*
- * Serve as the ABC (Python terminology) for finite state machine
+ * Implement the ABC for finite state machine
+ *
+ * The 5 tuple inputs are implemented using custom data classes. which are wrappers
+ * of the built-in data structures but with added methods for convenience:
+ *      FiniteSet<E> - overrides the HashSet<E>
+ *      TransitionFunction<X,Y> - overrides the HashMap<Pair<X,Y>,FiniteSet<Y>>
  *
  * Provide methods for input validation and final state validation.
  */
@@ -9,17 +14,22 @@ import src.utils.FiniteSet;
 import src.utils.Pair;
 import src.utils.TransitionFunction;
 
+import java.util.Calendar;
 import java.util.InputMismatchException;
 import java.util.Map;
 
 public class FiniteStateMachine {
+    //5 tuple private variables
     protected FiniteSet<Integer> initState;
+
     protected FiniteSet<Integer> finalState;
+
     protected FiniteSet<Integer> stateSet;
+
     protected FiniteSet<Character> symbolSet;
+
     protected TransitionFunction<Integer, Character> transitionFunction;
 
-    FiniteStateMachine(){}
     //Constructor
     public FiniteStateMachine(FiniteSet<Integer> initState,
                        FiniteSet<Integer> finalState,
@@ -36,46 +46,6 @@ public class FiniteStateMachine {
         validateTransitionFunction(this.transitionFunction);
     }
 
-    public FiniteSet<Integer> getInitState() {
-        return initState;
-    }
-
-    public void setInitState(FiniteSet<Integer> initState) {
-        this.initState = initState;
-    }
-
-    public FiniteSet<Integer> getFinalState() {
-        return finalState;
-    }
-
-    public void setFinalState(FiniteSet<Integer> finalState) {
-        this.finalState = finalState;
-    }
-
-    public FiniteSet<Integer> getStateSet() {
-        return stateSet;
-    }
-
-    public void setStateSet(FiniteSet<Integer> stateSet) {
-        this.stateSet = stateSet;
-    }
-
-    public FiniteSet<Character> getSymbolSet() {
-        return symbolSet;
-    }
-
-    public void setSymbolSet(FiniteSet<Character> symbolSet) {
-        this.symbolSet = symbolSet;
-    }
-
-    public TransitionFunction<Integer, Character> getTransitionFunction() {
-        return transitionFunction;
-    }
-
-    public void setTransitionFunction(TransitionFunction<Integer, Character> transitionFunction) {
-        this.transitionFunction = transitionFunction;
-    }
-
     //Check if parameter state is a valid state
     public boolean isValidState(int state) {
         return stateSet.contains(state);
@@ -83,7 +53,11 @@ public class FiniteStateMachine {
 
     //Check if parameter symbol is a valid symbol
     public boolean isValidSymbol(Character symbol) {
-        return symbolSet.contains(symbol);
+        return symbolSet.contains(symbol) || isSpace(symbol);
+    }
+
+    public boolean isSpace(Character symbol){
+        return (symbol == ' ' || symbol == '\n' || symbol == '\t');
     }
 
     //Validate states and transition function

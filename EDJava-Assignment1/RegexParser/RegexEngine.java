@@ -1,19 +1,22 @@
+/*
+* Main API of the RegexEngine.
+*
+* The RegexEngine consists of the frontend and the backend stages,
+* The front end parse a regex pattern and build an equivalent e-NFA backbone
+* The backend converts the backbone the functional eNFA and provides further optimisation
+* including:
+*     Simplifying the state object representation to an integer
+*     Providing method for parsing string and validate string based on input regex pattern,
+*     Normalising the eNFA to a DFA for a more optimised inference (TODO)
+*/
+
 import src.BackEnd.ENonDeterministicAutomata;
 import src.FrontEnd.FrontEnd;
 import src.FrontEnd.StateContainer;
 
-/*
-TODO: Add README.md
-Add comments to the model. Set an event loop - while keyPressed != CTRL+C then continue
-Write unit tests
-Write whole program test
-Run on submission
-Modify so that when model receives incorrect error, it returns false instead of shutting down
-Scenario with white space
- */
 public class RegexEngine {
-    private FrontEnd frontEnd;
-    private ENonDeterministicAutomata backEnd;
+    private final FrontEnd frontEnd;
+    private final ENonDeterministicAutomata backEnd;
 
     public RegexEngine(String string, boolean debug) {
         frontEnd = new FrontEnd(string, debug);
@@ -23,13 +26,14 @@ public class RegexEngine {
                 container.getTransitionFunction(), container.getETransitionFunction());
     }
 
-    public void accept(String string) {
-        return backEnd.accept(string, false);
+    public void parse(String string) {
+        System.out.println(string);
+        System.out.println(backEnd.accept(string, false));
     }
 
     public static void main(String[] args) {
         RegexEngine engine = new RegexEngine("(ab)*|c+",false);
-        System.out.println(engine.accept("abc"));
-        System.out.println(engine.accept("ccc"));
+        engine.parse("abc");
+        engine.parse("ccc");
     }
 }

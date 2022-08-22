@@ -1,26 +1,22 @@
+/*
+* Implements a DFS variant to obtain the closure required for an eNFA.
+* Takes as an input the G = (V,E) where
+* V is the set of all possible states
+* E - vertex set of all directed epsilon transitions.
+*
+* The public APIs available for this are:
+*     Constructor which takes as input the vertexSet and the edgeSet
+*     Run - run internal methods to process the closure field
+*     getClosure - return the closure as a HashMap.
+*/
+
 package src.utils;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class DFS {
-    public FiniteSet<Integer> getVertexSet() {
-        return vertexSet;
-    }
-
-    public void setVertexSet(FiniteSet<Integer> vertexSet) {
-        this.vertexSet = vertexSet;
-    }
-
     protected FiniteSet<Integer> vertexSet;
-
-    public HashMap<Integer, FiniteSet<Integer>> getEdgeSet() {
-        return edgeSet;
-    }
-
-    public void setEdgeSet(HashMap<Integer, FiniteSet<Integer>> edgeSet) {
-        this.edgeSet = edgeSet;
-    }
 
     protected HashMap<Integer, FiniteSet<Integer>> edgeSet;
 
@@ -31,7 +27,6 @@ public class DFS {
     protected HashMap<Integer, FiniteSet<Integer>> closure;
     protected HashMap<Integer, Integer> status;
 
-
     public DFS(FiniteSet<Integer> vertexSet,
                HashMap<Integer, FiniteSet<Integer>> edgeSet) {
         this.vertexSet = vertexSet;
@@ -39,7 +34,7 @@ public class DFS {
         initialise();
     }
 
-    public void initialise() {
+    private void initialise() {
         HashMap<Integer, FiniteSet<Integer>> closure = new HashMap<>();
         HashMap<Integer, Integer> status = new HashMap<>();
         for (int v : vertexSet) {

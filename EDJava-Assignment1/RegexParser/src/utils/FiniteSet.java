@@ -1,15 +1,16 @@
+/*
+ * FiniteSet is the type alias for HashSet<E>, used to store
+ * states and symbols for FiniteStateMachines. Additional methods provided
+ * include getIntersection and getUnion, which are useful for validating input symbols, and
+ * declaring initial states.
+ */
+
+
 package src.utils;
 
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
-
-/*
- * FiniteSet is the type alias for HashSet<E> (C++ type alias), use to store
- * states and symbols for FiniteStateMachines. Additional methods provided
- * include getIntersection and getUnion, which are useful for validating input symbols
- * and declared initial states.
- */
 
 public class FiniteSet<E> extends HashSet<E> {
     //Constructors following HashSet constructors
@@ -35,7 +36,7 @@ public class FiniteSet<E> extends HashSet<E> {
         return union;
     }
 
-    //Factory method
+    //Static Factory method
     public static <E> FiniteSet<E> of(E... elem){
         return new FiniteSet<>(Set.of(elem));
     }

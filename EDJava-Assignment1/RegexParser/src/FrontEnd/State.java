@@ -1,5 +1,9 @@
-package src.FrontEnd;
+/* Basic building block of a FiniteStateMachine.
+*
+* Used for building StateContainer, which is essentially a FiniteStateMachine
+*/
 
+package src.FrontEnd;
 
 import src.utils.FiniteSet;
 

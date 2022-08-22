@@ -1,7 +1,9 @@
-package src.utils;
 /* Implementing the pair class since
- *  Intellij seems to have troubles importing it
+ *  it is in the javafx package (Not sure if permitted for this assignment)
  */
+
+package src.utils;
+
 public class Pair<U, V> {
     public final U first;       // the first field of a pair
     public final V second;      // the second field of a pair

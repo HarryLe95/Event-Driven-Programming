@@ -1,11 +1,11 @@
-package src.utils;
-import java.util.HashMap;
-import java.util.Map;
-
 /*
  * TransitionFunction<U,V> is the type alias for HashMap<Pair<U,V>,FiniteSet<V>> (C++ type alias),
  * use to store the mapping from symbol x state to state(s).
  */
+
+package src.utils;
+import java.util.HashMap;
+import java.util.Map;
 
 public class TransitionFunction<U, V> extends
         HashMap<Pair<U, V>, FiniteSet<U>> {
@@ -19,7 +19,7 @@ public class TransitionFunction<U, V> extends
         super(m);
     }
 
-    //Static factory method
+    //Static factory methods for convenience
     public static <U, V> TransitionFunction<U, V> of(U kf, V ks, FiniteSet<U> v) {
         return new TransitionFunction<>(Map.of(Pair.of(kf, ks), v));
     }

@@ -1,3 +1,16 @@
+/* Use for building a FiniteStateMachine.
+*
+* Provide different API to create an NFA from
+*    A symbol transition
+*    A concatenation of two NFAs
+*    An alternation of two NFAs
+*    A repetition (*|+) of an NFA
+*
+* Also provide an API to get the 5 tuple input to the backend NFA
+* and a toString method to print out the transition table for debugging purposes
+*
+*/
+
 package src.FrontEnd;
 
 

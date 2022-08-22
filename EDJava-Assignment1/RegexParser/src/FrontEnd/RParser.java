@@ -1,3 +1,10 @@
+/* Implement the Shunting Yard Algorithm for RegexParser.
+ *
+ * The only add-on is the invisible operator '.' to represent the concatenation
+ * operation.
+ *
+ */
+
 package src.FrontEnd;
 
 import src.utils.Pair;

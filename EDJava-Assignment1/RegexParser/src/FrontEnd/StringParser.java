@@ -1,3 +1,13 @@
+/* Implement the Shunting Yard Algorithm for producing the postfix expression.
+*
+* The algorithm takes as input an operator precedence rule set (here implemented as a HashMap),
+* and the set of accepted symbol (here simplified to be alphaNumeric characters and parenthesis '(' ')') and
+* produce a postfix expression obeying operator precedence. The postfix expression is useful for stack based arithmetic
+* operations. For instance, given the following expression 3*4+5*2^3^3, the postfix notation produced is
+* 34*5233^^*+
+*
+*/
+
 package src.FrontEnd;
 import src.utils.Pair;
 
@@ -11,10 +21,6 @@ public class StringParser {
     StringParser(){}
     StringParser(HashMap<Character, Pair<Integer, Character>> opDict) {
         this.opDict = opDict;
-    }
-
-    public HashMap<Character, Pair<Integer, Character>> getOpDict() {
-        return opDict;
     }
 
     public void initialise() {
