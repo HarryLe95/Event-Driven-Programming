@@ -9,11 +9,15 @@ public class FrontEnd {
     private Queue<Character> outputQueue;
     private StateContainer modelContainer;
 
-    FrontEnd(){
+    public StateContainer getModelContainer(){
+        return modelContainer;
+    }
+
+    public FrontEnd(){
         stringParser=new RParser();
     }
 
-    FrontEnd(String string, boolean debug){
+    public FrontEnd(String string, boolean debug){
         this.stringParser = new RParser();
         this.outputQueue = stringParser.parse(string, false);
         this.modelContainer = buildContainer();

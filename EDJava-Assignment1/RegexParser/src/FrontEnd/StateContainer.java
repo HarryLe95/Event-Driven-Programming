@@ -20,6 +20,30 @@ public class StateContainer {
 
     protected FiniteSet<Character> symbolSet;
 
+    public HashMap<Integer, FiniteSet<Integer>> getETransitionFunction() {
+        return eTransitionFunction;
+    }
+
+    public TransitionFunction<Integer, Character> getTransitionFunction() {
+        return transitionFunction;
+    }
+
+    public FiniteSet<Integer> getStateSet() {
+        return stateSet;
+    }
+
+    public FiniteSet<Character> getSymbolSet() {
+        return symbolSet;
+    }
+
+    public FiniteSet<Integer> getInitState() {
+        return initState;
+    }
+
+    public FiniteSet<Integer> getFinalState() {
+        return finalState;
+    }
+
     protected FiniteSet<Integer> initState;
 
     protected FiniteSet<Integer> finalState;

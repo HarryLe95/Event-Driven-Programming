@@ -11,7 +11,7 @@ public class ENonDeterministicAutomata extends NonDeterministicAutomata {
     private HashMap<Integer, FiniteSet<Integer>> eTransitionFunction;
     private HashMap<Integer, FiniteSet<Integer>> closure;
 
-    ENonDeterministicAutomata(FiniteSet<Integer> initState,
+    public ENonDeterministicAutomata(FiniteSet<Integer> initState,
                               FiniteSet<Integer> finalState,
                               FiniteSet<Integer> stateSet,
                               FiniteSet<Character> symbolSet,
