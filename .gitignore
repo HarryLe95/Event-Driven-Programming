@@ -1,3 +1,7 @@
 *.pdf
 *.pyc
 *.html
+**/out/**
+**/.idea/
+*.class
+*.iml
