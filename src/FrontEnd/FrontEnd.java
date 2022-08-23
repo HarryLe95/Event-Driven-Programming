@@ -41,7 +41,8 @@ public class FrontEnd {
         Stack<StateContainer> container = new Stack<>();
         while(!outputQueue.isEmpty()){
             char c = outputQueue.remove();
-            if (stringParser.isAlphanumeric(c)){ //Create new container and push to stack
+            if (stringParser.isAlphanumeric(c)||
+                    stringParser.isSpace(c)){ //Create new container and push to stack
                 container.push(StateContainer.fromSymbol(c));
             }
             if (stringParser.isOperator(c)){
