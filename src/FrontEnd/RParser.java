@@ -12,6 +12,7 @@ import src.utils.Pair;
 import java.util.HashMap;
 import java.util.InputMismatchException;
 import java.util.Map;
+import java.util.Queue;
 
 public class RParser extends StringParser{
 
@@ -27,6 +28,18 @@ public class RParser extends StringParser{
 
     protected boolean toConcat;
 
+    private void opCheck(char op){
+        if (op=='|'||op=='.'){
+            opCounter-=2;
+        }
+        if (op =='+'||op=='*'){
+            opCounter-=1;
+        }
+        if (opCounter<0){
+            throw new RuntimeException("Insufficient operand(s) for operation");
+        }
+    }
+
     @Override
     public void initialise(){
         super.initialise();
@@ -36,9 +49,7 @@ public class RParser extends StringParser{
 
     @Override
     protected char parseSubroutine(char c, char p) {
-        if (src.FrontEnd.StringParser.isSpace(c)) {
-            return p;
-        } else if (isAlphanumeric(c)) {
+        if (isAlphanumeric(c) || isSpace(c)) {
             if (!toConcat){
                 toConcat=true;
             }else {
@@ -58,15 +69,7 @@ public class RParser extends StringParser{
                         (opDict.get(op2).first > opDict.get(c).first) ||
                                 ((opDict.get(op2).first == opDict.get(c).first) &&
                                         (opDict.get(c).second == 'L')))) {
-                    if (op2=='|'||op2=='.'){
-                        opCounter-=2;
-                    }
-                    if (op2 =='+'||op2=='*'){
-                        opCounter-=1;
-                    }
-                    if (opCounter<0){
-                        throw new RuntimeException("Insufficient operand(s) for operation");
-                    }
+                    opCheck(op2);
                     outputQueue.offer(opStack.pop());
                     opCounter++;
                 } else {
@@ -103,12 +106,33 @@ public class RParser extends StringParser{
         return c;
     }
 
+    @Override
+    public Queue<Character> parse(String string, boolean debug) {
+        initialise();
+        char p = '\0';
+        for (char c : string.toCharArray()) {
+            p = parseSubroutine(c,p);
+            if (debug) {
+                System.out.println("Token: " + c + ", opStack: " + opStack + ", outputQueue: " + outputQueue);
+            }
+        }
+        while (!opStack.isEmpty()) {
+            char op = opStack.pop();
+            opCheck(op);
+            outputQueue.offer(op);
+            opCounter++;
+        }
+        if (debug) {
+            System.out.println("opStack: " + opStack + ", outputQueue: " + outputQueue);
+        }return outputQueue;
+    }
+
     public static void main(String[] args) {
         RParser regexParser = new RParser();
         System.out.println(regexParser.parse("abc|xyz",false));
         System.out.println(regexParser.parse("ab(xy)+|(c|d)at",false));
         System.out.println(regexParser.parse("((a|b)(c|d)*e)+|f",false));
         System.out.println(regexParser.parse("a|b",false));
-        System.out.println(regexParser.parse(" a | +c|\n",false));
+        System.out.println(regexParser.parse(" a | +c|",false));
     }
 }

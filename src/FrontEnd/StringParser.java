@@ -45,7 +45,7 @@ public class StringParser {
     }
 
     public static boolean isSpace(char c) {
-        return (c == ' '|| c == '\t' || c=='\n');
+        return (c == ' ');
     }
 
     protected char parseSubroutine(char c, char p) {
@@ -90,7 +90,6 @@ public class StringParser {
 
     public Queue<Character> parse(String string, boolean debug) {
         initialise();
-        string = string.trim();
         char p = '\0';
         for (char c : string.toCharArray()) {
             p = parseSubroutine(c,p);

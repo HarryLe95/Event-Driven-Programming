@@ -28,6 +28,8 @@ public class RegexEngine {
                 container.getTransitionFunction(), container.getETransitionFunction());
     }
 
+
+
     public void parse(String string) {
         System.out.println(backEnd.accept(string, false));
     }

@@ -66,7 +66,6 @@ public class ENonDeterministicAutomata extends NonDeterministicAutomata {
 
     @Override
     public boolean accept(String string, boolean debug) {
-        string = string.trim();
         boolean noException = next(string, debug);
         if (!noException){
             return false;

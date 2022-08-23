@@ -74,7 +74,6 @@ public class NonDeterministicAutomata extends FiniteStateMachine {
     }
 
     public boolean accept(String string, boolean debug) {
-        string = string.trim();
         boolean noException = next(string, debug);
         if (!noException){
             return false;
