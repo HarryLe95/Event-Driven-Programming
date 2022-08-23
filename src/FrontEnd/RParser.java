@@ -14,6 +14,8 @@ import java.util.InputMismatchException;
 import java.util.Map;
 
 public class RParser extends StringParser{
+
+    private int opCounter;
     RParser(){
         this.opDict = new HashMap<>(Map.of(
                 '*', Pair.of(3,'L'),
@@ -29,27 +31,44 @@ public class RParser extends StringParser{
     public void initialise(){
         super.initialise();
         this.toConcat=false;
+        opCounter=0;
     }
 
     @Override
-    protected void parseSubroutine(char c) {
+    protected char parseSubroutine(char c, char p) {
         if (src.FrontEnd.StringParser.isSpace(c)) {
-            return;
+            return p;
         } else if (isAlphanumeric(c)) {
             if (!toConcat){
                 toConcat=true;
             }else {
-                parseSubroutine('.');
+                parseSubroutine('.', p);
             }
             outputQueue.offer(c);
+            opCounter++;
         } else if (isOperator(c)) {
+            if (c=='+'||c=='*'){
+                if (!(isAlphanumeric(p)||isSpace(p)||isRightParenthesis(p))){
+                    throw new RuntimeException("Invalid operator placement");
+                }
+            }
             while (!opStack.isEmpty()) {
                 char op2 = opStack.peek();
                 if (!isLeftParenthesis(op2) && (
                         (opDict.get(op2).first > opDict.get(c).first) ||
                                 ((opDict.get(op2).first == opDict.get(c).first) &&
                                         (opDict.get(c).second == 'L')))) {
+                    if (op2=='|'||op2=='.'){
+                        opCounter-=2;
+                    }
+                    if (op2 =='+'||op2=='*'){
+                        opCounter-=1;
+                    }
+                    if (opCounter<0){
+                        throw new RuntimeException("Insufficient operand(s) for operation");
+                    }
                     outputQueue.offer(opStack.pop());
+                    opCounter++;
                 } else {
                     break;
                 }
@@ -60,7 +79,7 @@ public class RParser extends StringParser{
             }
         } else if (isLeftParenthesis(c)) {
             if (toConcat){
-                parseSubroutine('.');
+                parseSubroutine('.', p);
                 toConcat=false;
             }
             opStack.push(c);
@@ -81,6 +100,7 @@ public class RParser extends StringParser{
         } else {
             throw new InputMismatchException("Not a valid language symbol");
         }
+        return c;
     }
 
     public static void main(String[] args) {
@@ -88,5 +108,7 @@ public class RParser extends StringParser{
         System.out.println(regexParser.parse("abc|xyz",false));
         System.out.println(regexParser.parse("ab(xy)+|(c|d)at",false));
         System.out.println(regexParser.parse("((a|b)(c|d)*e)+|f",false));
+        System.out.println(regexParser.parse("a|b",false));
+        System.out.println(regexParser.parse(" a | +c|\n",false));
     }
 }

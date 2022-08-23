@@ -45,12 +45,12 @@ public class StringParser {
     }
 
     public static boolean isSpace(char c) {
-        return (c == ' ');
+        return (c == ' '|| c == '\t' || c=='\n');
     }
 
-    protected void parseSubroutine(char c) {
+    protected char parseSubroutine(char c, char p) {
         if (isSpace(c)) {
-            return;
+            return c;
         } else if (isAlphanumeric(c)) {
             outputQueue.offer(c);
         } else if (isOperator(c)) {
@@ -85,13 +85,15 @@ public class StringParser {
             }
         } else {
             throw new InputMismatchException("Not a valid language symbol");
-        }
+        }return c;
     }
 
     public Queue<Character> parse(String string, boolean debug) {
         initialise();
+        string = string.trim();
+        char p = '\0';
         for (char c : string.toCharArray()) {
-            parseSubroutine(c);
+            p = parseSubroutine(c,p);
             if (debug) {
                 System.out.println("Token: " + c + ", opStack: " + opStack + ", outputQueue: " + outputQueue);
             }

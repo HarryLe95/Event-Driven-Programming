@@ -14,6 +14,8 @@ import src.BackEnd.ENonDeterministicAutomata;
 import src.FrontEnd.FrontEnd;
 import src.FrontEnd.StateContainer;
 
+import java.util.Scanner;
+
 public class RegexEngine {
     private final FrontEnd frontEnd;
     private final ENonDeterministicAutomata backEnd;
@@ -27,13 +29,14 @@ public class RegexEngine {
     }
 
     public void parse(String string) {
-        System.out.println(string);
         System.out.println(backEnd.accept(string, false));
     }
 
     public static void main(String[] args) {
-        RegexEngine engine = new RegexEngine("(ab)*|c+",false);
-        engine.parse("abc");
-        engine.parse("ccc");
+        Scanner scanner = new Scanner(System.in);
+        RegexEngine engine = new RegexEngine(scanner.nextLine(),false);
+        while (true){
+            engine.parse(scanner.nextLine());
+        }
     }
 }
