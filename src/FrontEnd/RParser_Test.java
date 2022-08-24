@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 
 import static org.junit.Assert.*;
 
-public class RParserTest {
+public class RParser_Test {
     public static RParser parser = new RParser();
     @Test
     public void test1(){

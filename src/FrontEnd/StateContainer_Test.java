@@ -9,7 +9,7 @@ import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 
-public class StateContainerTest {
+public class StateContainer_Test {
     @Test
     public void testFromSymbol1() {
         StateContainer container = StateContainer.fromSymbol('a');

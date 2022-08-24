@@ -3,7 +3,7 @@ import src.BackEnd.ENonDeterministicAutomata;
 
 import static org.junit.Assert.*;
 
-public class RegexEngineTest {
+public class RegexEngine_Test {
     @Test
     public void test1(){
         RegexEngine model = new RegexEngine("(ab)*|c+",false);

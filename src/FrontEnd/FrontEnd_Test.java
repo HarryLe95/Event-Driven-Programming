@@ -10,7 +10,7 @@ import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 
-public class FrontEndTest {
+public class FrontEnd_Test {
     @Test
     public void testFromSymbol1() {
         FrontEnd model = new FrontEnd("a",false);

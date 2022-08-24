@@ -9,7 +9,7 @@ import org.junit.Test;
 import java.util.HashMap;
 import java.util.Map;
 
-public class DFSTest {
+public class DFS_Test {
     @Test
     public void test1(){
         FiniteSet<Integer> vertexSet = FiniteSet.of(1, 2, 3, 4);

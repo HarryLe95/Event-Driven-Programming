@@ -10,7 +10,7 @@ import src.utils.TransitionFunction;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ENonDeterministicAutomataTest {
+public class ENonDeterministicAutomata_Test {
     @Test
     public void testIntRec1(){
         FiniteSet<Character> symbolSet = FiniteSet.of('+', '-', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9');

@@ -1,17 +1,20 @@
 package src.BackEnd;
+
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import org.junit.Before;
 import org.junit.Test;
 import src.utils.FiniteSet;
 import src.utils.TransitionFunction;
 
 import java.util.InputMismatchException;
-public class DeterministicAutomataTest {
-    @Test
-    public void testZeroOne1(){
+
+public class FiniteStateMachine_Test {
+    @Test(expected = InputMismatchException.class)
+    public void testIncorrectState1(){
         FiniteSet<Integer> initState = FiniteSet.of(0);
-        FiniteSet<Integer> finalState = FiniteSet.of(2);
+        FiniteSet<Integer> finalState = FiniteSet.of(3);
         FiniteSet<Integer> stateSet = FiniteSet.of(0, 1, 2);
         FiniteSet<Character> symbolSet = FiniteSet.of('0', '1');
         TransitionFunction<Integer, Character> transitionFunction = TransitionFunction.of(
@@ -22,14 +25,12 @@ public class DeterministicAutomataTest {
                 2, '0', FiniteSet.of(1),
                 2, '1', FiniteSet.of(0)
         );
-        DeterministicAutomata zeroOne = new DeterministicAutomata(initState, finalState,
-                stateSet, symbolSet, transitionFunction, false);
-        zeroOne.accept("1101");
-        assertTrue(zeroOne.isAcceptedState(zeroOne.getCurrentState()));
+        FiniteStateMachine machine = new FiniteStateMachine(initState, finalState,
+                stateSet, symbolSet,transitionFunction,false);
     }
 
-    @Test
-    public void testZeroOne2(){
+    @Test(expected = InputMismatchException.class)
+    public void testIncorrectState2(){
         FiniteSet<Integer> initState = FiniteSet.of(0);
         FiniteSet<Integer> finalState = FiniteSet.of(2);
         FiniteSet<Integer> stateSet = FiniteSet.of(0, 1, 2);
@@ -40,16 +41,14 @@ public class DeterministicAutomataTest {
                 1, '0', FiniteSet.of(1),
                 1, '1', FiniteSet.of(2),
                 2, '0', FiniteSet.of(1),
-                2, '1', FiniteSet.of(0)
+                3, '1', FiniteSet.of(0)
         );
-        DeterministicAutomata zeroOne = new DeterministicAutomata(initState, finalState,
-                stateSet, symbolSet, transitionFunction, false);
-        zeroOne.accept("01");
-        assertTrue(zeroOne.isAcceptedState(zeroOne.getCurrentState()));
+        FiniteStateMachine machine = new FiniteStateMachine(initState, finalState,
+                stateSet, symbolSet,transitionFunction,false);
     }
 
-    @Test
-    public void testZeroOne3(){
+    @Test(expected = InputMismatchException.class)
+    public void testIncorrectState3(){
         FiniteSet<Integer> initState = FiniteSet.of(0);
         FiniteSet<Integer> finalState = FiniteSet.of(2);
         FiniteSet<Integer> stateSet = FiniteSet.of(0, 1, 2);
@@ -60,16 +59,14 @@ public class DeterministicAutomataTest {
                 1, '0', FiniteSet.of(1),
                 1, '1', FiniteSet.of(2),
                 2, '0', FiniteSet.of(1),
-                2, '1', FiniteSet.of(0)
+                2, '1', FiniteSet.of(5)
         );
-        DeterministicAutomata zeroOne = new DeterministicAutomata(initState, finalState,
-                stateSet, symbolSet, transitionFunction, false);
-        zeroOne.accept("001101");
-        assertTrue(zeroOne.isAcceptedState(zeroOne.getCurrentState()));
+        FiniteStateMachine machine = new FiniteStateMachine(initState, finalState,
+                stateSet, symbolSet,transitionFunction,false);
     }
 
-    @Test
-    public void testZeroOne4(){
+    @Test(expected = InputMismatchException.class)
+    public void testIncorrectSymbol1(){
         FiniteSet<Integer> initState = FiniteSet.of(0);
         FiniteSet<Integer> finalState = FiniteSet.of(2);
         FiniteSet<Integer> stateSet = FiniteSet.of(0, 1, 2);
@@ -77,19 +74,17 @@ public class DeterministicAutomataTest {
         TransitionFunction<Integer, Character> transitionFunction = TransitionFunction.of(
                 0, '0', FiniteSet.of(1),
                 0, '1', FiniteSet.of(0),
-                1, '0', FiniteSet.of(1),
+                1, '5', FiniteSet.of(1),
                 1, '1', FiniteSet.of(2),
                 2, '0', FiniteSet.of(1),
                 2, '1', FiniteSet.of(0)
         );
-        DeterministicAutomata zeroOne = new DeterministicAutomata(initState, finalState,
-                stateSet, symbolSet, transitionFunction, false);
-        zeroOne.accept("0011011");
-        assertFalse(zeroOne.isAcceptedState(zeroOne.getCurrentState()));
+        FiniteStateMachine machine = new FiniteStateMachine(initState, finalState,
+                stateSet, symbolSet,transitionFunction,false);
     }
 
-    @Test
-    public void testZeroOne5(){
+    @Test(expected = InputMismatchException.class)
+    public void testIncorrectSymbol2(){
         FiniteSet<Integer> initState = FiniteSet.of(0);
         FiniteSet<Integer> finalState = FiniteSet.of(2);
         FiniteSet<Integer> stateSet = FiniteSet.of(0, 1, 2);
@@ -100,16 +95,14 @@ public class DeterministicAutomataTest {
                 1, '0', FiniteSet.of(1),
                 1, '1', FiniteSet.of(2),
                 2, '0', FiniteSet.of(1),
-                2, '1', FiniteSet.of(0)
+                2, 'c', FiniteSet.of(0)
         );
-        DeterministicAutomata zeroOne = new DeterministicAutomata(initState, finalState,
-                stateSet, symbolSet, transitionFunction, false);
-        zeroOne.accept("010");
-        assertFalse(zeroOne.isAcceptedState(zeroOne.getCurrentState()));
+        FiniteStateMachine machine = new FiniteStateMachine(initState, finalState,
+                stateSet, symbolSet,transitionFunction,false);
     }
 
-    @Test(expected = RuntimeException.class)
-    public void testZeroOne6(){
+    @Test(expected = InputMismatchException.class)
+    public void testIncorrectSymbol3(){
         FiniteSet<Integer> initState = FiniteSet.of(0);
         FiniteSet<Integer> finalState = FiniteSet.of(2);
         FiniteSet<Integer> stateSet = FiniteSet.of(0, 1, 2);
@@ -118,18 +111,16 @@ public class DeterministicAutomataTest {
                 0, '0', FiniteSet.of(1),
                 0, '1', FiniteSet.of(0),
                 1, '0', FiniteSet.of(1),
-                1, '1', FiniteSet.of(2),
+                1, '-', FiniteSet.of(2),
                 2, '0', FiniteSet.of(1),
                 2, '1', FiniteSet.of(0)
         );
-        DeterministicAutomata zeroOne = new DeterministicAutomata(initState, finalState,
-                stateSet, symbolSet, transitionFunction, false);
-        zeroOne.accept("0a10");
-        assertFalse(zeroOne.isAcceptedState(zeroOne.getCurrentState()));
+        FiniteStateMachine machine = new FiniteStateMachine(initState, finalState,
+                stateSet, symbolSet,transitionFunction,false);
     }
 
-    @Test(expected = RuntimeException.class)
-    public void testZeroOne7(){
+    @Test()
+    public void testAcceptState1(){
         FiniteSet<Integer> initState = FiniteSet.of(0);
         FiniteSet<Integer> finalState = FiniteSet.of(2);
         FiniteSet<Integer> stateSet = FiniteSet.of(0, 1, 2);
@@ -142,14 +133,13 @@ public class DeterministicAutomataTest {
                 2, '0', FiniteSet.of(1),
                 2, '1', FiniteSet.of(0)
         );
-        DeterministicAutomata zeroOne = new DeterministicAutomata(initState, finalState,
-                stateSet, symbolSet, transitionFunction, false);
-        zeroOne.accept("010 10");
-        assertFalse(zeroOne.isAcceptedState(zeroOne.getCurrentState()));
+        FiniteStateMachine machine = new FiniteStateMachine(initState, finalState,
+                stateSet, symbolSet,transitionFunction,false);
+        assertTrue(machine.isAcceptedState(2));
     }
 
-    @Test(expected = RuntimeException.class)
-    public void testZeroOne8(){
+    @Test()
+    public void testAcceptState2(){
         FiniteSet<Integer> initState = FiniteSet.of(0);
         FiniteSet<Integer> finalState = FiniteSet.of(2);
         FiniteSet<Integer> stateSet = FiniteSet.of(0, 1, 2);
@@ -162,14 +152,13 @@ public class DeterministicAutomataTest {
                 2, '0', FiniteSet.of(1),
                 2, '1', FiniteSet.of(0)
         );
-        DeterministicAutomata zeroOne = new DeterministicAutomata(initState, finalState,
-                stateSet, symbolSet, transitionFunction, false);
-        zeroOne.accept("+01010");
-        assertFalse(zeroOne.isAcceptedState(zeroOne.getCurrentState()));
+        FiniteStateMachine machine = new FiniteStateMachine(initState, finalState,
+                stateSet, symbolSet,transitionFunction,false);
+        assertFalse(machine.isAcceptedState(1));
     }
 
-    @Test(expected = RuntimeException.class)
-    public void testZeroOne9(){
+    @Test()
+    public void testAcceptState3(){
         FiniteSet<Integer> initState = FiniteSet.of(0);
         FiniteSet<Integer> finalState = FiniteSet.of(2);
         FiniteSet<Integer> stateSet = FiniteSet.of(0, 1, 2);
@@ -182,14 +171,13 @@ public class DeterministicAutomataTest {
                 2, '0', FiniteSet.of(1),
                 2, '1', FiniteSet.of(0)
         );
-        DeterministicAutomata zeroOne = new DeterministicAutomata(initState, finalState,
-                stateSet, symbolSet, transitionFunction, false);
-        zeroOne.accept(" 01010");
-        assertFalse(zeroOne.isAcceptedState(zeroOne.getCurrentState()));
+        FiniteStateMachine machine = new FiniteStateMachine(initState, finalState,
+                stateSet, symbolSet,transitionFunction,false);
+        assertFalse(machine.isAcceptedState(5));
     }
 
-    @Test(expected = RuntimeException.class)
-    public void testZeroOne10(){
+    @Test()
+    public void testAcceptStates1(){
         FiniteSet<Integer> initState = FiniteSet.of(0);
         FiniteSet<Integer> finalState = FiniteSet.of(2);
         FiniteSet<Integer> stateSet = FiniteSet.of(0, 1, 2);
@@ -202,9 +190,69 @@ public class DeterministicAutomataTest {
                 2, '0', FiniteSet.of(1),
                 2, '1', FiniteSet.of(0)
         );
-        DeterministicAutomata zeroOne = new DeterministicAutomata(initState, finalState,
-                stateSet, symbolSet, transitionFunction, false);
-        zeroOne.accept("0101+0");
-        assertFalse(zeroOne.isAcceptedState(zeroOne.getCurrentState()));
+        FiniteStateMachine machine = new FiniteStateMachine(initState, finalState,
+                stateSet, symbolSet,transitionFunction,false);
+        FiniteSet<Integer> finalSet = FiniteSet.of(1,2);
+        assertTrue(machine.isAcceptedState(finalSet));
+    }
+
+    @Test()
+    public void testAcceptStates2(){
+        FiniteSet<Integer> initState = FiniteSet.of(0);
+        FiniteSet<Integer> finalState = FiniteSet.of(2);
+        FiniteSet<Integer> stateSet = FiniteSet.of(0, 1, 2);
+        FiniteSet<Character> symbolSet = FiniteSet.of('0', '1');
+        TransitionFunction<Integer, Character> transitionFunction = TransitionFunction.of(
+                0, '0', FiniteSet.of(1),
+                0, '1', FiniteSet.of(0),
+                1, '0', FiniteSet.of(1),
+                1, '1', FiniteSet.of(2),
+                2, '0', FiniteSet.of(1),
+                2, '1', FiniteSet.of(0)
+        );
+        FiniteStateMachine machine = new FiniteStateMachine(initState, finalState,
+                stateSet, symbolSet,transitionFunction,false);
+        FiniteSet<Integer> finalSet = FiniteSet.of(0, 1,2);
+        assertTrue(machine.isAcceptedState(finalSet));
+    }
+
+    @Test()
+    public void testAcceptStates3(){
+        FiniteSet<Integer> initState = FiniteSet.of(0);
+        FiniteSet<Integer> finalState = FiniteSet.of(2);
+        FiniteSet<Integer> stateSet = FiniteSet.of(0, 1, 2);
+        FiniteSet<Character> symbolSet = FiniteSet.of('0', '1');
+        TransitionFunction<Integer, Character> transitionFunction = TransitionFunction.of(
+                0, '0', FiniteSet.of(1),
+                0, '1', FiniteSet.of(0),
+                1, '0', FiniteSet.of(1),
+                1, '1', FiniteSet.of(2),
+                2, '0', FiniteSet.of(1),
+                2, '1', FiniteSet.of(0)
+        );
+        FiniteStateMachine machine = new FiniteStateMachine(initState, finalState,
+                stateSet, symbolSet,transitionFunction,false);
+        FiniteSet<Integer> finalSet = FiniteSet.of(2,0);
+        assertTrue(machine.isAcceptedState(finalSet));
+    }
+
+    @Test()
+    public void testAcceptStates4(){
+        FiniteSet<Integer> initState = FiniteSet.of(0);
+        FiniteSet<Integer> finalState = FiniteSet.of(2);
+        FiniteSet<Integer> stateSet = FiniteSet.of(0, 1, 2);
+        FiniteSet<Character> symbolSet = FiniteSet.of('0', '1');
+        TransitionFunction<Integer, Character> transitionFunction = TransitionFunction.of(
+                0, '0', FiniteSet.of(1),
+                0, '1', FiniteSet.of(0),
+                1, '0', FiniteSet.of(1),
+                1, '1', FiniteSet.of(2),
+                2, '0', FiniteSet.of(1),
+                2, '1', FiniteSet.of(0)
+        );
+        FiniteStateMachine machine = new FiniteStateMachine(initState, finalState,
+                stateSet, symbolSet,transitionFunction,false);
+        FiniteSet<Integer> finalSet = FiniteSet.of(1,0);
+        assertFalse(machine.isAcceptedState(finalSet));
     }
 }
