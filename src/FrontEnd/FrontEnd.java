@@ -71,8 +71,4 @@ public class FrontEnd {
 
         return result;
     }
-
-    public static void main(String[] args) {
-        FrontEnd parserFrontEnd = new FrontEnd("abc",false);
-    }
 }

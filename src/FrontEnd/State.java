@@ -63,23 +63,4 @@ public class State {
         System.out.println(output);
     }
 
-
-
-    public static void main(String[] args) {
-        State q0 = new State();
-        State q1 = new State();
-        State q2 = new State();
-        q0.add(q1);
-        q0.add(q2,'a');
-        System.out.println(q0.next());
-        System.out.println(q0.next('a'));
-        System.out.println(q0.isEndState());
-        System.out.println(q1.isEndState());
-        System.out.println(q2.isEndState());
-        q0.repr();
-        q1.repr();
-        q2.repr();
-
-    }
-
 }

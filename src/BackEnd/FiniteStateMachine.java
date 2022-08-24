@@ -14,7 +14,6 @@ import src.utils.FiniteSet;
 import src.utils.Pair;
 import src.utils.TransitionFunction;
 
-import java.util.Calendar;
 import java.util.InputMismatchException;
 import java.util.Map;
 
@@ -30,17 +29,22 @@ public class FiniteStateMachine {
 
     protected TransitionFunction<Integer, Character> transitionFunction;
 
+    protected boolean debug;
+
     //Constructor
+    FiniteStateMachine(){}
     public FiniteStateMachine(FiniteSet<Integer> initState,
-                       FiniteSet<Integer> finalState,
-                       FiniteSet<Integer> stateSet,
-                       FiniteSet<Character> symbolSet,
-                       TransitionFunction<Integer, Character> transitionFunction) {
+                              FiniteSet<Integer> finalState,
+                              FiniteSet<Integer> stateSet,
+                              FiniteSet<Character> symbolSet,
+                              TransitionFunction<Integer, Character> transitionFunction,
+                              boolean debug) {
         this.initState = initState;
         this.finalState = finalState;
         this.stateSet = stateSet;
         this.symbolSet = symbolSet;
         this.transitionFunction = transitionFunction;
+        this.debug = debug;
         validateState(this.initState);
         validateState(this.finalState);
         validateTransitionFunction(this.transitionFunction);
@@ -53,11 +57,15 @@ public class FiniteStateMachine {
 
     //Check if parameter symbol is a valid symbol
     public boolean isValidSymbol(Character symbol) {
-        return symbolSet.contains(symbol) || isSpace(symbol);
+        return symbolSet.contains(symbol);
     }
 
-    public boolean isSpace(Character symbol){
-        return (symbol == ' ' || symbol == '\n' || symbol == '\t');
+    public boolean isSpace(Character symbol) {
+        return (symbol == ' ' || symbol == '\t');
+    }
+
+    public boolean isEnter(Character symbol) {
+        return symbol == '\n';
     }
 
     //Validate states and transition function
@@ -99,7 +107,7 @@ public class FiniteStateMachine {
         return !intersection.isEmpty();
     }
 
-    public boolean isAcceptedState(int state){
+    public boolean isAcceptedState(int state) {
         return finalState.contains(state);
     }
 }

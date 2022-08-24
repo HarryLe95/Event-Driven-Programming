@@ -11,34 +11,50 @@
 */
 
 import src.BackEnd.ENonDeterministicAutomata;
+import src.BackEnd.ENonDeterministicAutomataTest;
 import src.FrontEnd.FrontEnd;
 import src.FrontEnd.StateContainer;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class RegexEngine {
-    private final FrontEnd frontEnd;
-    private final ENonDeterministicAutomata backEnd;
+    public final FrontEnd frontEnd;
+    public final ENonDeterministicAutomata backEnd;
+
 
     public RegexEngine(String string, boolean debug) {
         frontEnd = new FrontEnd(string, debug);
         StateContainer container = frontEnd.getModelContainer();
         backEnd = new ENonDeterministicAutomata(container.getInitState(),
                 container.getFinalState(), container.getStateSet(), container.getSymbolSet(),
-                container.getTransitionFunction(), container.getETransitionFunction());
+                container.getTransitionFunction(), container.getETransitionFunction(),
+                debug);
     }
 
 
 
     public void parse(String string) {
-        System.out.println(backEnd.accept(string, false));
+        backEnd.accept(string);
     }
 
     public static void main(String[] args) {
+        boolean verbose = false;
+        if (args.length > 0){
+            if (args[0].equals("-v")){
+                verbose=true;
+            }
+        }
         Scanner scanner = new Scanner(System.in);
-        RegexEngine engine = new RegexEngine(scanner.nextLine(),false);
+        RegexEngine engine = new RegexEngine(scanner.nextLine(),verbose);
         while (true){
-            engine.parse(scanner.nextLine());
+            String nextLine = scanner.nextLine();
+            if (nextLine.isEmpty()){
+                engine.parse("\n");
+            }else{
+                engine.parse(nextLine);
+            }
         }
     }
 }

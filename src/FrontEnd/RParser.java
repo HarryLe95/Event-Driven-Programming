@@ -118,6 +118,9 @@ public class RParser extends StringParser{
         }
         while (!opStack.isEmpty()) {
             char op = opStack.pop();
+            if (isLeftParenthesis(op)){
+                throw new InputMismatchException("Extra parenthesis");
+            }
             opCheck(op);
             outputQueue.offer(op);
             opCounter++;
