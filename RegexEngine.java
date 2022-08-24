@@ -47,6 +47,7 @@ public class RegexEngine {
         RegexEngine engine = new RegexEngine(scanner.nextLine(),verbose);
         while (true){
             String nextLine = scanner.nextLine();
+            System.out.println(nextLine);
             if (nextLine.isEmpty()){
                 engine.parse("\n");
             }else{
