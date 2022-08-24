@@ -36,36 +36,36 @@ public class RegexEngine_Test {
         assertFalse(backEnd.isAcceptedState(backEnd.getCurrentState()));
     }
 
-    @Test(expected = RuntimeException.class)
+    @Test()
     public void test5(){
         RegexEngine model = new RegexEngine("(ab)*|c+",false);
-        model.parse("abca bb");
+        model.parse("abc");
         ENonDeterministicAutomata backEnd = model.backEnd;
         assertFalse(backEnd.isAcceptedState(backEnd.getCurrentState()));
     }
 
-    @Test(expected = RuntimeException.class)
+    @Test()
     public void test6(){
         RegexEngine model = new RegexEngine("(ab)*|c+",false);
-        model.parse("zabcabb");
+        model.parse("abcadbb");
         ENonDeterministicAutomata backEnd = model.backEnd;
         assertFalse(backEnd.isAcceptedState(backEnd.getCurrentState()));
     }
 
-    @Test(expected = RuntimeException.class)
+    @Test()
     public void test7(){
-        RegexEngine model = new RegexEngine(" *",false);
-        model.parse("z");
+        RegexEngine model = new RegexEngine("(ab)*|c+",false);
+        model.parse("cccaaa");
         ENonDeterministicAutomata backEnd = model.backEnd;
         assertFalse(backEnd.isAcceptedState(backEnd.getCurrentState()));
     }
 
-    @Test(expected = RuntimeException.class)
+    @Test()
     public void test8(){
         RegexEngine model = new RegexEngine(" *",false);
-        model.parse(" *");
+        model.parse(" ");
         ENonDeterministicAutomata backEnd = model.backEnd;
-        assertFalse(backEnd.isAcceptedState(backEnd.getCurrentState()));
+        assertTrue(backEnd.isAcceptedState(backEnd.getCurrentState()));
     }
 
     @Test

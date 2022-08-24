@@ -313,28 +313,6 @@ public class ENonDeterministicAutomata_Test {
         assertFalse(AorB.isAcceptedState(AorB.getCurrentState()));
     }
 
-    @Test()
-    public void testAorB5(){
-        FiniteSet<Character> symbolSet = FiniteSet.of('a','b');
-        FiniteSet<Integer> stateSet = FiniteSet.of(0, 1, 2, 3, 4, 5);
-        FiniteSet<Integer> initState = FiniteSet.of(0);
-        FiniteSet<Integer> finalState = FiniteSet.of(3);
-        TransitionFunction<Integer, Character> transitionFunction =
-                TransitionFunction.ofEntries(
-                        Map.entry(Pair.of(1, 'b'), FiniteSet.of(2)),
-                        Map.entry(Pair.of(4, 'a'), FiniteSet.of(5))
-                );
-        HashMap<Integer, FiniteSet<Integer>> eTransitionFunction = new HashMap<>(Map.of(
-                0, FiniteSet.of(1,4),
-                2, FiniteSet.of(3),
-                5, FiniteSet.of(3)
-        ));
-
-        ENonDeterministicAutomata AorB = new ENonDeterministicAutomata(initState, finalState,
-                stateSet, symbolSet, transitionFunction, eTransitionFunction, false);
-        AorB.accept(" a");
-        assertFalse(AorB.isAcceptedState(AorB.getCurrentState()));
-    }
 
     @Test
     public void testABZeroOrCOne1(){

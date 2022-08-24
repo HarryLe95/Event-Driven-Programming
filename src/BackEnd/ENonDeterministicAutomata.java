@@ -25,15 +25,15 @@ import src.utils.Pair;
 import src.utils.TransitionFunction;
 
 import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
 
 public class ENonDeterministicAutomata extends NonDeterministicAutomata {
     private HashMap<Integer, FiniteSet<Integer>> eTransitionFunction;
     private HashMap<Integer, FiniteSet<Integer>> closure;
 
     //Constructor
-    ENonDeterministicAutomata(){}
+    ENonDeterministicAutomata() {
+    }
+
     public ENonDeterministicAutomata(FiniteSet<Integer> initState,
                                      FiniteSet<Integer> finalState,
                                      FiniteSet<Integer> stateSet,
@@ -45,7 +45,7 @@ public class ENonDeterministicAutomata extends NonDeterministicAutomata {
         this.finalState = finalState;
         this.stateSet = stateSet;
         this.symbolSet = symbolSet;
-        this.transitionFunction= transitionFunction;
+        this.transitionFunction = transitionFunction;
         this.debug = debug;
         validateState(this.initState);
         validateState(this.finalState);
@@ -74,10 +74,11 @@ public class ENonDeterministicAutomata extends NonDeterministicAutomata {
     @Override
     public void initialise() {
         currentState = getClosure(initState);
-        if (debug){
+        if (debug) {
             System.out.println(isAcceptedState(currentState));
         }
     }
+
     //Override the parent's next and accept methods to use closure as the current state
     @Override
     public void next(char symbol) {
@@ -91,25 +92,30 @@ public class ENonDeterministicAutomata extends NonDeterministicAutomata {
                 }
             }
             currentState = getClosure(nextState);
-            if (debug){
+            if (debug) {
                 System.out.println(isAcceptedState(currentState));
             }
-        }
-        if (isEnter(symbol)){
+        } else if (isEnter(symbol)) {
             initialise();
+        } else {
+            throw new RuntimeException("Invalid symbol encountered");
         }
     }
 
     @Override
     public void accept(String string) {
-        if (!debug){
-            initialise();
-        }
-        for (char symbol : string.toCharArray()){
-            next(symbol);
-        }
-        if (!debug){
-            System.out.println(isAcceptedState(currentState));
+        try {
+            if (!debug) {
+                initialise();
+            }
+            for (char symbol : string.toCharArray()) {
+                next(symbol);
+            }
+            if (!debug) {
+                System.out.println(isAcceptedState(currentState));
+            }
+        }catch (Exception e){
+            System.out.println(false);
         }
     }
 
