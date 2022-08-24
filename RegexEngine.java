@@ -38,11 +38,11 @@ public class RegexEngine {
 
     public static void main(String[] args) {
         boolean verbose = false;
-//        if (args.length > 0){
-//            if (args[0].equals("-v")){
-//                verbose=true;
-//            }
-//        }
+        if (args.length > 0){
+            if (args[0].equals("-v")){
+                verbose=true;
+            }
+        }
         Scanner scanner = new Scanner(System.in);
         RegexEngine engine = new RegexEngine(scanner.nextLine(),verbose);
         while (true){
