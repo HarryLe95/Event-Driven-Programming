@@ -290,7 +290,7 @@ public class ENonDeterministicAutomata_Test {
         assertFalse(AorB.isAcceptedState(AorB.getCurrentState()));
     }
 
-    @Test(expected = RuntimeException.class)
+    @Test()
     public void testAorB4(){
         FiniteSet<Character> symbolSet = FiniteSet.of('a','b');
         FiniteSet<Integer> stateSet = FiniteSet.of(0, 1, 2, 3, 4, 5);
@@ -310,9 +310,10 @@ public class ENonDeterministicAutomata_Test {
         ENonDeterministicAutomata AorB = new ENonDeterministicAutomata(initState, finalState,
                 stateSet, symbolSet, transitionFunction, eTransitionFunction, false);
         AorB.accept("abc");
+        assertFalse(AorB.isAcceptedState(AorB.getCurrentState()));
     }
 
-    @Test(expected = RuntimeException.class)
+    @Test()
     public void testAorB5(){
         FiniteSet<Character> symbolSet = FiniteSet.of('a','b');
         FiniteSet<Integer> stateSet = FiniteSet.of(0, 1, 2, 3, 4, 5);
@@ -332,6 +333,7 @@ public class ENonDeterministicAutomata_Test {
         ENonDeterministicAutomata AorB = new ENonDeterministicAutomata(initState, finalState,
                 stateSet, symbolSet, transitionFunction, eTransitionFunction, false);
         AorB.accept(" a");
+        assertFalse(AorB.isAcceptedState(AorB.getCurrentState()));
     }
 
     @Test

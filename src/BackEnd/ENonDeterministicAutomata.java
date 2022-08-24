@@ -95,11 +95,8 @@ public class ENonDeterministicAutomata extends NonDeterministicAutomata {
                 System.out.println(isAcceptedState(currentState));
             }
         }
-        else if (isEnter(symbol)){
+        if (isEnter(symbol)){
             initialise();
-        }else{
-            System.out.println(symbol+" "+(int)symbol);
-            throw new RuntimeException("Invalid symbol encountered");
         }
     }
 
