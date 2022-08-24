@@ -1,14 +1,14 @@
 /*
-* Main API of the RegexEngine.
-*
-* The RegexEngine consists of the frontend and the backend stages,
-* The front end parse a regex pattern and build an equivalent e-NFA backbone
-* The backend converts the backbone the functional eNFA and provides further optimisation
-* including:
-*     Simplifying the state object representation to an integer
-*     Providing method for parsing string and validate string based on input regex pattern,
-*     Normalising the eNFA to a DFA for a more optimised inference (TODO)
-*/
+ * Main API of the RegexEngine.
+ *
+ * The RegexEngine consists of the frontend and the backend stages,
+ * The front end parse a regex pattern and build an equivalent e-NFA backbone
+ * The backend converts the backbone the functional eNFA and provides further optimisation
+ * including:
+ *     Simplifying the state object representation to an integer
+ *     Providing method for parsing string and validate string based on input regex pattern,
+ *     Normalising the eNFA to a DFA for a more optimised inference (TODO)
+ */
 
 import src.BackEnd.ENonDeterministicAutomata;
 import src.FrontEnd.FrontEnd;
@@ -20,7 +20,6 @@ public class RegexEngine {
     public final FrontEnd frontEnd;
     public final ENonDeterministicAutomata backEnd;
 
-
     public RegexEngine(String string, boolean debug) {
         frontEnd = new FrontEnd(string, debug);
         StateContainer container = frontEnd.getModelContainer();
@@ -30,27 +29,25 @@ public class RegexEngine {
                 debug);
     }
 
-
-
     public void parse(String string) {
         backEnd.accept(string);
     }
 
     public static void main(String[] args) {
         boolean verbose = false;
-        if (args.length > 0){
-            if (args[0].equals("-v")){
-                verbose=true;
+        if (args.length > 0) {
+            if (args[0].equals("-v")) {
+                verbose = true;
             }
         }
         Scanner scanner = new Scanner(System.in);
-        RegexEngine engine = new RegexEngine(scanner.nextLine(),verbose);
-        while (true){
+        RegexEngine engine = new RegexEngine(scanner.nextLine(), verbose);
+        while (true) {
             String nextLine = scanner.nextLine();
             System.out.println(nextLine);
-            if (nextLine.isEmpty()){
+            if (nextLine.isEmpty()) {
                 engine.parse("\n");
-            }else{
+            } else {
                 engine.parse(nextLine);
             }
         }

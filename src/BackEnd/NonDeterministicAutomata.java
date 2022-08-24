@@ -6,8 +6,8 @@
  * interface as the deterministic version.
  *
  * The public `accept` method receives as an input a string or a character and determines
- * whether the given string is accepted by the DFA, based on the 5 tuple provided at construction. White
- * space characters are ignored, but invalid symbols give a false whenever first encountered in the string.
+ * whether the given string is accepted by the DFA, based on the 5 tuple provided at construction. Invalid symbols
+ * give a false whenever first encountered in the string.
  * The `accept` method uses the internal `next` method to output the final state given the input string
  * and use the base class' method `isAcceptedState` to validate the final state.
  *
@@ -76,6 +76,7 @@ public class NonDeterministicAutomata extends FiniteStateMachine {
 
     //Accept string method
     public void accept(String string) {
+        try{
         if (!debug){
             initialise();
         }
@@ -84,6 +85,8 @@ public class NonDeterministicAutomata extends FiniteStateMachine {
         }
         if (!debug){
             System.out.println(isAcceptedState(currentState));
+        }}catch (Exception e){
+            System.out.println(false);
         }
     }
 

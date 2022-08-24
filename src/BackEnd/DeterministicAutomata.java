@@ -62,6 +62,7 @@ public class DeterministicAutomata extends src.BackEnd.FiniteStateMachine {
 
     //Accept string method
     public void accept(String string) {
+        try{
         if (!debug){
             initialise();
         }
@@ -70,6 +71,8 @@ public class DeterministicAutomata extends src.BackEnd.FiniteStateMachine {
         }
         if (!debug){
             System.out.println(isAcceptedState(currentState));
+        }} catch (Exception e){
+            System.out.println(false);
         }
     }
 }
