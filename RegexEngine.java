@@ -11,12 +11,9 @@
 */
 
 import src.BackEnd.ENonDeterministicAutomata;
-import src.BackEnd.ENonDeterministicAutomataTest;
 import src.FrontEnd.FrontEnd;
 import src.FrontEnd.StateContainer;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class RegexEngine {
